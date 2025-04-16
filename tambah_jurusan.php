@@ -1,17 +1,10 @@
-<?php
-include 'koneksi.php';
-
-$sql = "SELECT * FROM jurusan";
-$result = $conn->query($sql);
-?>
-
 <!DOCTYPE html>
 <html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Data Mahasiswa</title>
+    <title>Tambah Data Jurusan</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +21,7 @@ $result = $conn->query($sql);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
+            max-width: 400px;
         }
 
         h2 {
@@ -62,36 +55,11 @@ $result = $conn->query($sql);
 <body>
 
     <div class="container">
-        <h2>Tambah Data Mahasiswa</h2>
-        <form action="proses_tambah.php" method="POST">
+        <h2>Tambah Data Jurusan</h2>
+        <form action="proses_jurusan.php" method="POST">
             <div class="mb-3">
-                <label class="form-label">Nama:</label>
-                <input type="text" name="nama" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">NIM:</label>
-                <input type="number" name="nim" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Email:</label>
-                <input type="email" name="email" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Nomor:</label>
-                <input type="number" name="nomor" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Jurusan:</label>
-                <select name="jurusan" class="form-select" required>
-                    <option value="">Pilih Jurusan</option>
-                    <?php while ($row = $result->fetch_assoc()) : ?>
-                        <option value="<?= $row['jurusan_id']; ?>"><?= $row['nama_jurusan']; ?></option>
-                    <?php endwhile; ?>
-                </select>
+                <label class="form-label">Nama Jurusan:</label>
+                <input type="text" name="nama_jurusan" class="form-control" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Tambah</button>

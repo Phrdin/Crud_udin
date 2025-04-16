@@ -1,19 +1,32 @@
 <?php
 include 'koneksi.php';
 
-$nama = $_POST['nama'];
-$nim = $_POST['nim'];
-$email = $_POST['email'];
-$nomor = $_POST['nomor'];
-$jurusan = $_POST['jurusan'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nama = trim($_POST['nama']);
+    $nim = trim($_POST['nim']);
+    $email = trim($_POST['email']);
+    $nomor = trim($_POST['nomor']);
+    $jurusan_id = trim($_POST['jurusan']);
 
-$sql = "INSERT INTO mahasiswa (nama, nim, email, nomor, jurusan) VALUES ('$nama', '$nim','$email', '$nomor', '$jurusan')";
+    // Validasi input agar tidak ada yang kosong
+    if (empty($nama) || empty($nim) || empty($email) || empty($nomor) || empty($jurusan_id)) {
+        echo "<script>alert('Semua field harus diisi!'); window.history.back();</script>";
+        exit();
+    }
 
-if ($conn->query($sql) === TRUE) {
-    header("location: index.php");
-    exit;
+    // Gunakan prepared statement untuk mencegah SQL Injection
+    $stmt = $conn->prepare("INSERT INTO mahasiswa (nama, nim, email, nomor, jurusan_id) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssi", $nama, $nim, $email, $nomor, $jurusan_id);
+
+    if ($stmt->execute()) {
+        echo "<script>alert('Data mahasiswa berhasil ditambahkan!'); window.location.href='index.php';</script>";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
 } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    echo "Akses tidak diizinkan!";
 }
-
-$conn->close();
+?>

@@ -1,9 +1,9 @@
 <?php
 include 'koneksi.php';
 
-$id = $_GET['id'];
+$nama_jurusan = $_POST['nama_jurusan'];
 
-$sql = "DELETE FROM mahasiswa WHERE id=$id";
+$sql = "INSERT INTO jurusan (nama_jurusan) VALUES ('$nama_jurusan')";
 
 if ($conn->query($sql) === TRUE) {
     header("Location: index.php");

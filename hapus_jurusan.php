@@ -1,9 +1,9 @@
 <?php
 include 'koneksi.php';
 
-$id = $_GET['id'];
+$jurusan_id = $_GET['jurusan_id'];
 
-$sql = "DELETE FROM mahasiswa WHERE id=$id";
+$sql = "DELETE FROM jurusan WHERE jurusan_id=$jurusan_id";
 
 if ($conn->query($sql) === TRUE) {
     header("Location: index.php");
